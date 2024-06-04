@@ -1,0 +1,104 @@
+<md-button class="md-fab md-fab-top-right"
+           ng-click="newJobOffer()"
+           id="add-job-offer-btn"
+           aria-label="Add a job offer">
+  <md-icon>add</md-icon>
+</md-button>
+
+<announcement ng-if="validation">
+  <span class="md-body-2 md-accent">Validate the candidate requirements or sample CVs</span>
+</announcement>
+
+<div layout="column">
+  <div class="md-whiteframe-z1">
+
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex subtitle">Your jobs</h2>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-progress-circular class="md-padding center-block"
+                            ng-show="pendingJobs"
+                            md-mode="indeterminate"></md-progress-circular>
+      <p ng-hide="jobsData || pendingJobs" class="md-padding center-block">You have not posted any
+        jobs yet.</p>
+      <md-list ng-repeat="(status, jobsObject) in jobsData">
+        <md-subheader class="md-no-sticky">{{jobsObject.label | uppercase}}</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="jobOffer in jobsObject.items" ng-click="viewJob(jobOffer)">
+          <div class="md-list-item-text" layout="column">
+            <h3><span class="md-accent job-row-details">{{jobOffer.title}}</span></h3>
+            <h4><span
+              class="md-accent job-row-details">{{jobOffer.role}} - {{jobOffer.industry}}</span>
+            </h4>
+            <p class="job-row-details"><span ng-show="jobOffer.city">{{jobOffer.city}} - </span>{{jobOffer.location}}
+            </p>
+          </div>
+          <md-icon class="material-icons md-primary md-hue-2"
+                   ng-show="jobOffer.status=== 'Approved'">
+            done
+          </md-icon>
+          <md-icon class="material-icons md-accent "
+                   ng-show="jobOffer.status=== 'Draft'"> hourglass_empty
+          </md-icon>
+          <md-icon class="material-icons md-accent"
+                   ng-show="jobOffer.status=== 'Calibrated'">
+            whatshot
+          </md-icon>
+          <md-icon class="material-icons md-primary  md-hue-2"
+                   ng-show="jobOffer.status=== 'Validated'"> done_all
+          </md-icon>
+          <md-icon class="material-icons md-accent"
+                   ng-show="(jobOffer.status=== 'ShortlistReady' || jobOffer.status=== 'LonglistReady' || jobOffer.status=== 'Closed')">
+            <!--ng-show="(jobOffer.status=== 'ShortlistReady' || jobOffer.status=== 'LonglistReady' || jobOffer.status=== 'Closed') && jobOffer.shortlist.createdAt">-->
+            people
+          </md-icon>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+  <div ng-if="jobsData" class="md-padding">
+
+    <div class="row">
+      <span class="md-body-2" ng-show="drafts"><md-icon class="md-accent icon-padding-right">
+        hourglass_empty
+      </md-icon> Your haven't approved these jobs yet</span>
+      <span flex></span>
+    </div>
+    <div class="row">
+      <span class="md-body-2" ng-show="shortlist"><md-icon class="md-accent icon-padding-right">
+        people
+      </md-icon> Your shortlist/longlist is ready for these jobs</span>
+      <span flex></span>
+    </div>
+    <div class="row">
+      <span class="md-body-2" ng-show="calibrating"><md-icon class="md-primary md-hue-2 icon-padding-right">
+        done
+      </md-icon> These jobs are approved, we are currently sourcing 10 candidates for the calibration. We will ask you to review before starting the campaign. </span>
+      <span flex></span>
+    </div>
+    <div class="row">
+      <span class="md-body-2" ng-show="talent"><md-icon class="md-primary md-hue-2 icon-padding-right">
+        done_all
+      </md-icon> Our recruiters are looking for your talent for these jobs</span>
+      <span flex></span>
+    </div>
+
+    <!--<div class="row">-->
+    <!--<span class="md-body-2" ng-show="payment"><md-icon class="icon-padding-right">info_outline</md-icon> {{jobsData["cart"].length}} job(s) awaiting for payment</span>-->
+    <!--<span flex></span>-->
+    <!--</div>-->
+  </div>
+  <!--<div layout="column" layout-gt-sm="row" layout-align-gt-sm="end end">-->
+  <!--<span flex-gt-sm></span>-->
+  <!--<div layout="row">-->
+  <!--<md-progress-circular md-mode="{{pending}}"></md-progress-circular>-->
+  <!--<md-button flex ng-click="checkout()" ng-show="payment" class="md-raised md-primary md"-->
+  <!--id="publish-button" type="submit">-->
+  <!--<md-icon>payment</md-icon>-->
+  <!--Pay-->
+  <!--</md-button>-->
+  <!--</div>-->
+  <!--</div>-->
+
+</div>

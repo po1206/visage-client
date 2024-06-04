@@ -1,0 +1,263 @@
+<md-dialog aria-label="Refer candidate" style="width: 800px;" ng-cloak>
+  <form accessible-form name="submissionForm" ng-submit="submissionForm.$valid && doneSubmitting()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 ng-if="assignment">Refer a candidate</h2>
+        <h2 ng-if="!assignment">Apply to this job</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div id="candidate-submitted-success" ng-show="previousSubmission">
+          Your candidate {{previousSubmission.candidateEmail}} has been submitted. His profile will
+          be reviewed and you will get paid next week if he is validated
+          <md-divider></md-divider>
+        </div>
+        <div ng-show="getSlotsLeft()>0" layout="column">
+          <div layout="column"
+               layout-align="start center"
+               layout-align-gt-md="start start"
+               layout-gt-md="row">
+            <h2 class="md-headline" flex-order="3" flex-order-gt-md="1">
+              {{job.title}}</h2>
+            <span flex-gt-md flex-order-gt-md="2"></span>
+            <div ng-if="assignment" layout="column" flex-order="1" flex-order-gt-md="3">
+              <div layout="row" layout-align="end end">
+                <span class="md-body-1">
+                Bounty
+              </span>
+                <span style="margin-left:10px;" class="md-headline cv-approved">$ {{assignment.bounty}}</span>
+              </div>
+              <p style="text-align: right" class="md-caption">(per profile approved)</p>
+            </div>
+          </div>
+          <ol ng-if="assignment">
+            <li class="md-body-1">Only candidates that match the requirements will be approved.</li>
+            <li class="md-body-1">Submitting a wrong email address on purpose will result in a
+              permanent ban.
+            </li>
+          </ol>
+          <md-input-container>
+            <label for="email">Candidate email</label>
+            <input ng-required="true"
+                   type="email"
+                   name="email"
+                   ng-change="emailChanged()"
+                   ng-model="candidateSubmission.candidate.candidate.email"
+                   id="email">
+            <div ng-show="submissionForm.$submitted || submissionForm.email.$touched">
+              <div ng-message="required" ng-show="submissionForm.email.$error.required">This field
+                is
+                mandatory
+              </div>
+              <div ng-message="email" ng-show="submissionForm.email.$error.email">Invalid
+                format
+              </div>
+              <div ng-message="existing" ng-show="submissionForm.email.$error.existing">This
+                candidate has already been submitted for this vacancy
+              </div>
+              <div ng-message="maximumSubmissions" ng-show="submissionForm.email.$error.maximumSubmissions">Maximum
+                submissions number reached for this vacancy
+              </div>
+              <div ng-message="emailValidation" ng-show="submissionForm.email.$error.emailValidation">
+                Email validation failed: {{emailValidationMessage}}
+              </div>
+            </div>
+          </md-input-container>
+
+          <div layout="row">
+            <md-input-container flex-gt-sm>
+              <label for="name">Name</label>
+              <input ng-model="candidateSubmission.candidate.candidate.name"
+                     id="name"
+                     name="name"
+                     ng-required="true"
+                     type="text">
+              <div ng-show="submissionForm.$submitted || submissionForm.name.$touched">
+                <div ng-message="required" ng-show="submissionForm.name.$error.required">This field
+                  is
+                  mandatory
+                </div>
+              </div>
+            </md-input-container>
+            <md-autocomplete ng-if="assignment"
+                             flex-gt-sm
+                             class="md-block"
+                             ng-required="true"
+                             md-input-name="nationality"
+                             md-selected-item="candidateSubmission.candidate.candidate.nationality"
+                             md-search-text="searchTextNationality"
+                             md-items="nationality in querySearch(searchTextNationality)"
+                             md-item-text="nationality"
+                             md-floating-label="Nationality"
+                             md-autocomplete-required>
+
+              <md-item-template>
+                <span md-highlight-text="searchTextNationality">{{nationality}}</span>
+              </md-item-template>
+              <md-not-found>
+                No matching location.
+              </md-not-found>
+              <div ng-show="submissionForm.$submitted || submissionForm.nationality.$touched">
+                <div ng-message="selectedItem"
+                     ng-show="submissionForm.nationality.$error.selectedItem">Invalid
+                  nationality selected
+                </div>
+                <div ng-message="required" ng-show="submissionForm.nationality.$error.required">This
+                  field is
+                  mandatory
+                </div>
+              </div>
+            </md-autocomplete>
+          </div>
+
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="jobTitle">Current job title</label>
+              <input ng-required="true"
+                     ng-model="candidateSubmission.candidate.candidate.jobTitle"
+                     name="jobTitle"
+                     id="jobTitle"
+                     type="text">
+              <div ng-show="submissionForm.$submitted || submissionForm.jobTitle.$touched">
+                <div ng-message="required" ng-show="submissionForm.jobTitle.$error.required">This
+                  field is
+                  mandatory
+                </div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="employer">Current employer</label>
+              <input ng-required="true"
+                     ng-model="candidateSubmission.candidate.candidate.employer"
+                     name="employer"
+                     id="employer"
+                     type="text">
+              <div ng-show="submissionForm.$submitted || submissionForm.employer.$touched">
+                <div ng-message="required" ng-show="submissionForm.employer.$error.required">This
+                  field is
+                  mandatory
+                </div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-autocomplete class="md-block" ng-required="true" flex-gt-sm md-input-name="location"
+                             md-selected-item="candidateSubmission.candidate.candidate.location"
+                             md-search-text="searchTextLocation"
+                             md-items="location in querySearch(searchTextLocation)"
+                             md-item-text="location"
+                             md-floating-label="Country of residence"
+                             md-autocomplete-required>
+              <md-item-template>
+                <span md-highlight-text="searchTextLocation">{{location}}</span>
+              </md-item-template>
+              <md-not-found>
+                No matching location.
+              </md-not-found>
+              <div ng-show="submissionForm.$submitted || submissionForm.location.$touched">
+                <div ng-message="selectedItem"
+                     ng-show="submissionForm.location.$error.selectedItem">Invalid
+                  location selected
+                </div>
+                <div ng-message="required" ng-show="submissionForm.location.$error.required">This
+                  field is
+                  mandatory
+                </div>
+              </div>
+            </md-autocomplete>
+
+            <md-input-container>
+              <label for="city">City</label>
+              <input ng-model="candidateSubmission.candidate.candidate.city" id="city" type="text">
+            </md-input-container>
+          </div>
+
+          <p class="md-subhead">Upload CV</p>
+          <div class="uploaded" ng-show="candidateSubmission.candidate.candidate.cv" layout="row">
+            <span class="md-body-1 md-padding">  Uploaded :
+              <a href=""
+                 ng-click="download(candidateSubmission.candidate.candidate.cv)">
+                {{candidateSubmission.candidate.candidate.cv.originalFilename}}
+              </a></span>
+            <span flex></span>
+            <md-progress-circular ng-show="pendingDeletion"
+                                  md-mode="indeterminate"></md-progress-circular>
+            <md-button class="md-warn" ng-click="removeFileDesc(candidateSubmission.candidate.candidate.cv)">
+              Remove
+            </md-button>
+          </div>
+          <md-progress-linear ng-show="file.progress!==undefined"
+                              md-mode="determinate"
+                              value="{{file.progress}}"></md-progress-linear>
+          <div ng-disabled="file.progress"
+               ngf-drop
+               ngf-select
+               ng-model="file"
+               class="upload-zone"
+               layout-fill=""
+               ngf-drag-over-class="'dragover'"
+               ngf-multiple="false"
+               ngf-allow-dir="false"
+               accept="image/*,.pdf,.doc,.docx,.zip"
+               ngf-pattern="'image/*,.pdf,.doc,.docx,.zip'"
+               ngf-max-files="1"
+               ngf-max-size="10MB"
+               ng-required="true"
+          >
+            <div layout="column" layout-align-gt-sm="center center">
+              <p class="md-body-1">Drop your file here</p>
+              <p class="md-body-1">OR</p>
+              <md-button class="md-raised md-primary">upload</md-button>
+
+            </div>
+          </div>
+          <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+          <div ng-show="submissionForm.$submitted">
+            <div ng-message="required"
+                 ng-hide="candidateSubmission.candidate.candidate.cv"
+                 class="field-error">Upload a CV before submitting the candidate
+            </div>
+          </div>
+          <div layout="row">
+            <span class="md-caption">Max size: 10MB</span>
+            <span flex></span>
+            <span class="md-caption">Format: PDF, JPG, PNG, ZIP, DOCX or DOC</span>
+          </div>
+        </div>
+        <div ng-if="getSlotsLeft()===0" layout="column">
+          <p class="md-body-1">
+            <md-icon>info_outline</md-icon>
+            You can't submit any more candidates for this vacancy. Wait for your CVs to be
+            evaluated.
+          </p>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-progress-circular class="md-padding center-block"
+                            ng-show="checkingSubmission"
+                            md-mode="indeterminate"></md-progress-circular>
+      <!--<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>-->
+      <!--<md-icon>help</md-icon>-->
+      <!--<span style="margin-left: 10px;">Job requirements</span>-->
+      <!--</md-button>-->
+      <md-button ng-click="cancel()">
+        Close
+      </md-button>
+      <md-button ng-disabled="file.progress || checkingSubmission || getSlotsLeft()===0"
+                 class="md-primary"
+                 type="submit"
+                 style="margin-right:20px;">
+        Submit
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

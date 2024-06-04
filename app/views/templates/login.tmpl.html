@@ -1,0 +1,48 @@
+<div layout="row"
+     id="account-menu"
+     ng-if="portalType==='employer' || portalType==='recruiter' || portalType==='expert' || portalType==='login'">
+  <img ng-if="profile" class="user-picture" ng-src="{{profile.picture}}" alt="gravatar icon">
+  <md-menu layout="row" ng-if="profile && isAuthenticated()" md-offset="0 -5">
+    <div class="user-login-details" ng-click="openMenu($mdOpenMenu, $event)">
+      <div layout="column" layout-align="start start">
+        <div layout="row" layout-align="center center">
+          <span class="user-name"> {{profile.name}}</span>
+          <md-icon>arrow_drop_down</md-icon>
+        </div>
+        <div>
+          <span class="user-role"> {{portalType}}</span>
+        </div>
+      </div>
+    </div>
+
+    <md-menu-content width="4">
+      <md-menu-item ng-show="portalType === 'employer' && recruiter">
+        <md-button ng-click="goToEmployer()">
+          <md-icon md-menu-align-target>shuffle</md-icon>
+          Recruiter portal
+        </md-button>
+      </md-menu-item>
+      <md-menu-item ng-show="portalType === 'recruiter' && employer">
+        <md-button ng-click="goToRecruiter()">
+          <md-icon md-menu-align-target>shuffle</md-icon>
+          Employer portal
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button ng-click="goToProfile()">
+          <md-icon md-menu-align-target>person</md-icon>
+          Profile
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button id="logout-button" ng-click="logout()">
+          <md-icon md-menu-align-target>exit_to_app</md-icon>
+          Logout
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-button md-no-ink ng-if="!isAuthenticated()" ng-click="login()" href>Log in</md-button>
+</div>

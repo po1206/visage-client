@@ -1,0 +1,109 @@
+<div layout-gt-sm="row">
+  <div flex-gt-sm layout="column">
+    <div class="md-whiteframe-z1">
+      <md-content class="md-padding" ng-if="!params.temporaryToken || !params.price">
+        No payment to process
+      </md-content>
+    </div>
+    <div ng-if="params.temporaryToken && params.price" class="md-whiteframe-z1">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 class="subtitle md-flex">Your order</h2>
+        </div>
+      </md-toolbar>
+      <md-content flex class="md-padding">
+        <div layout="column" class="checkout-text-body">
+          <div layout="row"
+               layout-align="end end">
+            <p flex="60" class="md-body-1">{{payment.productLabel}}</p>
+            <p flex="20" class="md-body-2"></p>
+            <p flex="20" class="md-body-1"> USD {{payment.price}}</p>
+          </div>
+          <div ng-if="payment.discount || payment.discountLabel"
+               layout="row"
+               layout-align="end end">
+            <p flex="60" class="md-body-1">{{payment.discountLabel}}</p>
+            <p flex="20" class="md-body-1"> {{discountRate}} %</p>
+            <p flex="20" class="md-body-1"> USD {{payment.discount}}</p>
+          </div>
+          <div layout="row" layout-align="end end">
+            <p flex="60" class="md-body-2">Total</p>
+            <p flex="20" class="md-body-2"></p>
+            <p flex="20" class="md-body-2"> USD {{priceAfterDiscount}}</p>
+          </div>
+          <div layout="row" id="card-container">
+          </div>
+        </div>
+
+        <md-divider></md-divider>
+
+        <div layout-gt-sm="row">
+          <div layout="column" class="md-padding" layout-align="start start">
+            <div layout="column" layout-gt-sm="row" layout-align="start start">
+              <form name="tandcform">
+                <md-input-container>
+                  <md-checkbox ng-model="tandc"
+                               name="tandc"
+                               required
+                               ng-change="togglePayButton(tandc)"
+                               aria-label="T & C"
+                               class="md-primary md-hue-2">
+                    <div class="md-body-1 tac">I have read and I agree to
+                      <a href="https://visage.jobs/terms-conditions.html"
+                         target="_blank">
+                        the terms and conditions</a>
+                    </div>
+                  </md-checkbox>
+                  <div ng-messages="tandcform.tandc.$error"
+                       ng-show="tandcform.tandc.$error.required">
+                    <div ng-message="required">You must accept the terms and conditions.</div>
+                  </div>
+                </md-input-container>
+              </form>
+
+
+            </div>
+            <!--<md-checkbox ng-model="user.newsletter" name="newsletter" aria-label="Suscribe to newsletter"-->
+            <!--class="md-primary md-hue-2" ng-init="user.newsletter=true">-->
+            <!--<label>-->
+            <!--<p class="md-body-1 tac">Suscribe to the Visage newsletter</p>-->
+            <!--</label>-->
+            <!--</md-checkbox>-->
+
+          </div>
+
+          <div flex></div>
+        </div>
+
+        <div class="row">
+          <span class="md-body-2"><md-icon class="icon-padding-right">info_outline</md-icon> If you do not want to pay online contact us
+            <a href="mailto:team@visage.ae" target="_blank">team@visage.ae</a>
+          </span>
+          <span flex></span>
+        </div>
+
+        <div layout-gt-sm="row">
+          <span flex-gt-sm></span>
+          <div layout="row" layout-align="start center">
+            <span flex></span>
+            <md-icon>lock_outline</md-icon>
+            <div class="md-caption md-margin">Visage will never have access to your credit card
+              details
+            </div>
+          </div>
+          <div layout="column" layout-gt-sm="row">
+            <div flex ng-disabled="tandcform.$invalid" ng-if="payment.price"
+                 class="md-primary md-button md-raised">
+              <form name="paymentForm" id="payment-form">
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </md-content>
+    </div>
+  </div>
+
+</div>
+

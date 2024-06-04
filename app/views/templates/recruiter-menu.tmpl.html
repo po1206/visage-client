@@ -1,0 +1,33 @@
+<md-sidenav ng-if="!home" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+  <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools">Navigation</h1>
+  </md-toolbar>
+  <md-content layout-padding>
+    <md-list>
+      <md-list-item ng-click="navigateTo('/recruiter/my-jobs')">
+        <md-icon>star</md-icon>
+        <p>My jobs</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('/recruiter/jobs')">
+        <md-icon>view_headline</md-icon>
+        <p>Open jobs</p>
+      </md-list-item>
+      <!--<md-list-item disabled="disabled" ng-click="navigateTo('/recruiter/referred/')">-->
+      <!--<md-icon>people</md-icon>-->
+      <!--<p>Your referred candidates</p>-->
+      <!--</md-list-item>-->
+      <!--<md-list-item disabled="disabled" ng-click="navigateTo('/recruiter/payments/')">-->
+      <!--<md-icon>attach_money</md-icon>-->
+      <!--<p>Payments</p>-->
+      <!--</md-list-item>-->
+      <md-divider></md-divider>
+    </md-list>
+    <md-list>
+      <md-subheader class="md-no-sticky">Visage website</md-subheader>
+      <md-list-item href="http://visage.jobs">
+        <md-icon>info_outline</md-icon>
+        <p>About Visage</p>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</md-sidenav>

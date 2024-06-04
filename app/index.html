@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Visage | the new face of recruitment</title>
+  <meta name="description"
+        content="Visage is 'the' online headhunting service for every companies. We use selective methods to guarantee a quality shortlist of Candidates. Our community of recruiters headhunt talent for you for the price of a job ad campaign.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="NOINDEX, NOFOLLOW">
+  <meta name="keywords"
+        content="hiring, hire, job, jobs, startup, startups, SME, SMEs, headhunting, headhunter, freelance, recruiter, freecruiter, freecruiters, crowdsourcing, crowdsource">
+  <!-- Absolute necessary style-->
+  <style>
+    .global-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 200;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.93);
+    }
+
+    .global-loader img {
+      width:200px;
+    }
+
+    #bootstrap-loader {
+      width: 200px;
+      margin: 150px auto 0 auto;
+      text-align: center;
+    }
+    #bootstrap-loader p {
+      color : #6d6e71;
+    }
+  </style>
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="bower_components/tether-shepherd/dist/css/shepherd-theme-arrows.css" />
+  <link rel="stylesheet" href="bower_components/ngWig/dist/css/ng-wig.css" />
+  <link rel="stylesheet" href="bower_components/visage-ng-common/dist/visage-ng-common.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=2">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=2">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=2">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=2">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=2">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=2">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=2">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=2">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png?v=2" sizes="32x32">
+  <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=2" sizes="192x192">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=2" sizes="96x96">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png?v=2" sizes="16x16">
+  <link rel="manifest" href="/manifest.json?v=2">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=2">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+<body class="visage">
+
+<!-- Google Tag Manager -->
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TR9BDM"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>(function (w, d, s, l, i) {
+  w[l] = w[l] || [];
+  w[l].push({
+    'gtm.start': new Date().getTime(), event: 'gtm.js'
+  });
+  var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+  j.async = true;
+  j.src =
+    '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+  f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-TR9BDM');</script>
+<!-- End Google Tag Manager -->
+
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div id="config-module"></div>
+<div id="visage-client-app" class="full-height" global-loading="globalLoading">
+  <div class="global-loader" ng-if="false">
+    <div id='bootstrap-loader'>
+      <img src='images/Visage_green_logo.svg' alt='visage loading'>
+      <p>the new face of recruitment</p>
+      <div style="text-align: center;">
+        <md-progress-circular style="color:#309FC3">
+          <div class="md-scale-wrapper md-mode-indeterminate">
+            <div class="md-spinner-wrapper">
+              <div class="md-inner">
+                <div class="md-gap"></div>
+                <div class="md-left">
+                  <div class="md-half-circle"></div>
+                </div>
+                <div class="md-right">
+                  <div class="md-half-circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-progress-circular>
+      </div>
+    </div>
+  </div>
+  <section layout="row" ng-cloak>
+    <div id="menu-container" ng-if="!home">
+      <visage-employer-menu ng-if="portalType ==='employer'">
+      </visage-employer-menu>
+
+      <visage-candidate-menu ng-if="portalType ==='candidate'">
+      </visage-candidate-menu>
+
+      <visage-recruiter-menu ng-if="portalType ==='recruiter'">
+      </visage-recruiter-menu>
+
+      <visage-expert-menu ng-if="portalType ==='expert'">
+      </visage-expert-menu>
+    </div>
+
+
+    <div layout="column" flex>
+      <header>
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <md-button ng-if="!home" class="md-icon-button" aria-label="Settings"
+                       ng-click="toggleSide('left')">
+              <md-icon>menu</md-icon>
+            </md-button>
+            <a href="/#/{{portalType}}">
+              <img src="images/Visage_white_logo_horizontal.svg" alt="visage logo" id="visage-logo-header">
+            </a>
+            <span flex></span>
+            <!--<md-button class="md-icon-button" aria-label="Favorite">-->
+            <!--<md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>-->
+            <!--</md-button>-->
+            <login></login>
+          </div>
+        </md-toolbar>
+        <div ng-if="form" id="sub-toolbar" class="md-primary" ng-class="{'home' : home}"><h2
+          class="md-display-2 subtitle">{{form.title}}</h2></div>
+      </header>
+      <div id="content" flex>
+        <div class="normal" ng-class="{'expanded': form}" ng-view=""></div>
+        <md-content ng-show="progress>0" id="global-progress-bar" layout-gt-sm="row" layout-padding>
+          <md-progress-linear class="md-primary md-hue-2" md-mode="determinate"
+                              value="{{progress}}"></md-progress-linear>
+        </md-content>
+      </div>
+    </div>
+  </section>
+
+</div>
+<!--<footer class="footer">-->
+  <!--<div class="container center footer-message">-->
+    <!--<a href="http://www.visage.jobs"><img src="images/Visage_green_logo_horizontal.svg" width="100" alt="visage landing page"></a>-->
+  <!--<span> the new face of recruitment <a-->
+    <!--href="mailto:solutions@visage.ae">Contact-->
+    <!--Us</a> <a href="http://www.visage.jobs/privacy-policy" target="_blank">privacy policy</a></span>-->
+  <!--</div>-->
+<!--</footer>-->
+
+<!-- Ext libs-->
+<script src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+<script defer src="lib/iframeResizer.min.js"></script>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script defer src="bower_components/angular/angular.js"></script>
+<script defer src="bower_components/angular-animate/angular-animate.js"></script>
+<script defer src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script defer src="bower_components/angular-resource/angular-resource.js"></script>
+<script defer src="bower_components/angular-route/angular-route.js"></script>
+<script defer src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script defer src="bower_components/angular-aria/angular-aria.js"></script>
+<script defer src="bower_components/angular-messages/angular-messages.js"></script>
+<script defer src="bower_components/angular-material/angular-material.js"></script>
+<script defer src="bower_components/angular-payments/lib/angular-payments.js"></script>
+<script defer src="bower_components/tether/dist/js/tether.js"></script>
+<script defer src="bower_components/tether-shepherd/dist/js/shepherd.js"></script>
+<script defer src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+<script defer src="bower_components/auth0.js/build/auth0.js"></script>
+<script defer src="bower_components/auth0-angular/build/auth0-angular.js"></script>
+<script defer src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+<script defer src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+<script defer src="bower_components/moment/moment.js"></script>
+<script defer src="bower_components/checklist-model/checklist-model.js"></script>
+<script defer src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+<script defer src="bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
+<script defer src="bower_components/ng-file-upload-shim/ng-file-upload.min.js"></script>
+<script defer src="bower_components/x2js/xml2json.min.js"></script>
+<script defer src="bower_components/angular-xml/angular-xml.js"></script>
+<script defer src="bower_components/ngWig/dist/ng-wig.js"></script>
+<script defer src="bower_components/ngWig/dist/plugins/formats.ngWig.js"></script>
+<script defer src="bower_components/visage-ng-common/dist/visage-ng-common.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script defer src="scripts/app.js"></script>
+<script defer src="scripts/config.js"></script>
+<script defer src="scripts/constants.js"></script>
+<script defer src="scripts/run.js"></script>
+
+<script defer src="scripts/controllers/forbidden.js"></script>
+<script defer src="scripts/controllers/main.js"></script>
+<script defer src="scripts/controllers/login.js"></script>
+<script defer src="scripts/controllers/warning.js"></script>
+<script defer src="scripts/controllers/signup.js"></script>
+
+<script defer src="scripts/controllers/candidate/view-job-offer.js"></script>
+
+<script defer src="scripts/controllers/employer/jobs.js"></script>
+<script defer src="scripts/controllers/employer/new-job-offer.js"></script>
+<script defer src="scripts/controllers/employer/edit-job-offer.js"></script>
+<script defer src="scripts/controllers/employer/profile.js"></script>
+<script defer src="scripts/controllers/employer/view-job-offer.js"></script>
+<script defer src="scripts/controllers/employer/thank-you.js"></script>
+<script defer src="scripts/controllers/employer/checkout.js"></script>
+<script defer src="scripts/controllers/employer/review-candidates.js"></script>
+
+<script defer src="scripts/controllers/recruiter/jobs.js"></script>
+<script defer src="scripts/controllers/recruiter/my-jobs.js"></script>
+<script defer src="scripts/controllers/recruiter/profile.js"></script>
+<script defer src="scripts/controllers/recruiter/view-job-offer.js"></script>
+<script defer src="scripts/controllers/recruiter/refer-candidate.js"></script>
+
+
+<script defer src="scripts/controllers/expert/my-jobs.js"></script>
+<script defer src="scripts/controllers/expert/profile.js"></script>
+<script defer src="scripts/controllers/expert/view-job-offer.js"></script>
+<script defer src="scripts/controllers/expert/rate-candidate.js"></script>
+
+<script defer src="scripts/directives/global-loading.js"></script>
+<script defer src="scripts/directives/login.js"></script>
+<script defer src="scripts/directives/checklist-required.js"></script>
+<script defer src="scripts/directives/employer-menu.js"></script>
+<script defer src="scripts/directives/candidate-menu.js"></script>
+<script defer src="scripts/directives/recruiter-menu.js"></script>
+<script defer src="scripts/directives/expert-menu.js"></script>
+<script defer src="scripts/directives/md-autocomplete-required.js"></script>
+<script defer src="scripts/directives/job-description.js"></script>
+<script defer src="scripts/directives/walkthrough-item.js"></script>
+
+<script defer src="scripts/services/temp-local-storage.js"></script>
+<script defer src="scripts/services/order-service.js"></script>
+<script defer src="scripts/services/recruiter-service.js"></script>
+<script defer src="scripts/services/shepherd-service.js"></script>
+<script defer src="scripts/services/loader.js"></script>
+<script defer src="scripts/services/customer-service.js"></script>
+<script defer src="scripts/services/cached-resource.js"></script>
+<script defer src="scripts/services/preference.js"></script>
+<script defer src="scripts/services/user-behavior.js"></script>
+<script defer src="scripts/services/email-factory.js"></script>
+<script defer src="scripts/services/recruiter-submission.js"></script>
+<script defer src="scripts/services/recruiter-assignments.js"></script>
+<script defer src="scripts/services/expert-assignments.js"></script>
+<script defer src="scripts/services/job-offers.js"></script>
+<script defer src="scripts/services/invitation.js"></script>
+
+<script defer src="scripts/filters/filters.js"></script>
+
+<script defer src="scripts/bootstrap.js"></script>
+<!-- endbuild -->
+</body>
+</html>

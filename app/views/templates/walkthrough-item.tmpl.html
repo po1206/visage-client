@@ -1,0 +1,22 @@
+<div role="dialog"
+     aria-label="Walkthrough"
+     layout="column"
+     layout-align="center center"
+     style="height:100%">
+  <div style="width:100%" layout="row">
+    <span flex></span>
+    <md-button class="md-icon-button" ng-disabled="state.loading" ng-click="close()">
+      <md-icon aria-label="Close dialog">close</md-icon>
+    </md-button>
+  </div>
+  <div flex style="width:100%" ng-include="walkthroughUrl" class="container walkthrough-content md-padding" layout="column" layout-align="center center">
+  </div>
+  <md-progress-circular class="md-padding center-block"
+                        ng-show="state.loading"
+                        md-mode="indeterminate"></md-progress-circular>
+  <div style="width:100%" layout="row" class="demo-dialog-button">
+    <md-button ng-disabled="state.loading" md-autofocus flex class="md-primary md-raised" ng-click="close()">
+      Got it !
+    </md-button>
+  </div>
+</div>

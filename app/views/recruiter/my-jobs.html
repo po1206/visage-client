@@ -1,0 +1,103 @@
+<announcement ng-if="!user.recruiter.validated">
+  <span class="md-body-2">Your account is being reviewed you can't work on jobs yet. <br> We validate recruiters depending on our needs in your industry and area of specialization. If you are selected we'll come back to you in a few days</span>
+</announcement>
+
+<div layout="column">
+  <div ng-if="actives" class="md-whiteframe-z1">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex subtitle">Active claimed jobs</h2>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-progress-circular class="md-padding center-block"
+                            ng-show="pendingJobs"
+                            md-mode="indeterminate"></md-progress-circular>
+      <p ng-hide="activeAssignmentsByLocation || pendingJobs" class="md-padding center-block">No
+        open jobs - Come back later</p>
+      <md-list ng-repeat="(location, assignments) in activeAssignmentsByLocation">
+        <md-subheader class="md-no-sticky">{{location}}</md-subheader>
+        <md-list-item class="md-3-line"
+                      ng-repeat="assignment in assignments"
+                      ng-click="viewJob(assignment.job)">
+          <div class="md-list-item-text secondary-action-row" layout="row">
+            <div flex layout="column">
+              <h3><span class="md-accent job-row-details">{{assignment.job.title}}</span></h3>
+              <h4><span
+                class="md-accent job-row-details">{{assignment.job.role}} - {{assignment.job.industry}}</span>
+              </h4>
+              <p class="job-row-details">
+                <span ng-show="assignment.job.city">{{assignment.job.city}} - </span>{{assignment.job.location}}
+              </p>
+            </div>
+            <div layout="row" ng-if="!assignment.job.pre1dot8" hide show-gt-md>
+              <div class="kpi md-list-item-text" layout="column" layout-align="center center">
+                <span class="kpi-value cv-pending">{{assignment.pendingCVs || 0}}</span>
+                <span class="kpi-label">pending</span>
+              </div>
+              <div class="vertical-divider-mid"></div>
+              <div class="kpi md-list-item-text" layout="column" layout-align="center center">
+                <span class="kpi-value cv-approved">{{assignment.approvedCVs || 0}}</span>
+                <span class="kpi-label">approved</span>
+              </div>
+              <div class="vertical-divider-mid"></div>
+              <div class="kpi md-list-item-text" layout="column" layout-align="center center">
+                <span class="kpi-value cv-slots">{{getSlotsLeft(assignment)}}</span>
+                <span class="kpi-label">slots</span>
+              </div>
+              <div class="vertical-divider-mid"></div>
+            </div>
+          </div>
+          <md-button ng-if="!assignment.job.pre1dot8"
+                     ng-disabled="getSlotsLeft(assignment)===0"
+                     ng-click="refer($event,assignment)"
+                     class="md-icon-button md-accent md-secondary">
+            <md-tooltip md-direction="bottom">
+              Refer candidates
+            </md-tooltip>
+            <md-icon>group_add</md-icon>
+          </md-button>
+          <md-button ng-if="assignment.job.pre1dot8" ng-click="referWorkable($event,assignment)"
+                     class="md-icon-button md-accent md-secondary">
+            <md-tooltip md-direction="bottom">
+              Refer candidates
+            </md-tooltip>
+            <md-icon>group_add</md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+  <br>
+  <div ng-if="inactives" class="md-whiteframe-z1">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex subtitle">Inactive claimed jobs</h2>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-progress-circular class="md-padding center-block"
+                            ng-show="pendingJobs"
+                            md-mode="indeterminate"></md-progress-circular>
+      <p ng-hide="inactiveAssignmentsByLocation || pendingJobs" class="md-padding center-block">No
+        open jobs - Come back later</p>
+      <md-list ng-repeat="(location, assignments) in inactiveAssignmentsByLocation">
+        <md-subheader class="md-no-sticky">{{location}}</md-subheader>
+        <md-list-item class="md-3-line"
+                      ng-repeat="assignment in assignments"
+                      ng-click="viewJob(assignment.job)">
+          <div class="md-list-item-text" layout="column">
+            <h3><span class="md-accent job-row-details">{{assignment.job.title}}</span></h3>
+            <h4><span
+              class="md-accent job-row-details">{{assignment.job.role}} - {{assignment.job.industry}}</span>
+            </h4>
+            <p class="job-row-details">
+              <span ng-show="assignment.job.city">{{assignment.job.city}} - </span>{{assignment.job.location}}
+            </p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+
+</div>

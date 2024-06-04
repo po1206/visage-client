@@ -1,0 +1,55 @@
+<announcement ng-if="(job.justApplied)">
+  <span class="md-body-2">Your application has been registered. The employer will directly contact you if you make it to the next steps.</span>
+</announcement>
+
+<announcement ng-if="(job.status === 'Validated'|| job.status === 'LonglistReady' || job.status === 'ShortlistReady') && !job.sourcing">
+  <span class="md-body-2">Sorry, we do not accept
+    applications for this position anymore.</span>
+</announcement>
+
+<announcement ng-if="job.status === 'Closed'">
+  <span class="md-body-2">This position has been closed by the client.</span>
+</announcement>
+
+<announcement ng-if="job.launched === false">
+  <span class="md-body-2">This position has been put on hold by the client.</span>
+</announcement>
+
+<md-toolbar ng-if="job" class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>Job description</span>
+    </h2>
+    <span flex></span>
+    <md-button ng-click="apply($event)"
+               ng-if="job.sourcing"
+               class="md-icon-button"
+               aria-label="Apply">
+      <md-tooltip md-direction="bottom">
+        Apply
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content ng-if="job" class="md-padding">
+
+  <!-- FIXME -->
+  <job-description job="job" is-validated="isValidated"></job-description>
+  <div layout="column" layout-gt-sm="row">
+    <span flex-gt-sm></span>
+
+    <md-button ng-click="apply($event)"
+               ng-if="job.sourcing"
+               class="md-raised md-primary"
+               aria-label="Apply">
+      <md-tooltip md-direction="bottom">
+        Apply
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+      Apply
+    </md-button>
+
+  </div>
+
+</md-content>

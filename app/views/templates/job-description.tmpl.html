@@ -1,0 +1,43 @@
+<div layout="column" layout-gt-sm="row">
+  <h2 class="title md-headline" flex> {{job.title}}</h2>
+  <span class="md-caption">Submitted on {{job.submitted | date}}</span>
+</div>
+<div layout="column" layout-gt-md="row">
+  <div flex flex-gt-md="66" layout="row">
+    <div flex class="job-feature" layout="column" layout-align="center center">
+      <md-icon>location_on</md-icon>
+      <span class="md-body-1"><span ng-if="job.city">{{job.city}} - </span>{{job.location}}</span>
+    </div>
+    <div flex class="job-feature" layout="column" layout-align="center center">
+      <md-icon>work</md-icon>
+      <span class="md-body-1">{{job.role}}</span>
+    </div>
+    <div flex class="job-feature" layout="column" layout-align="center center">
+      <md-icon md-svg-src="images/icons/ic_industry.svg"></md-icon>
+      <span class="md-body-1">{{job.industry}}</span>
+    </div>
+
+  </div>
+  <div flex
+       flex-gt-md="33"
+       class="job-feature"
+       ng-if="assignment"
+       layout="column"
+       layout-align="center center">
+    <span class="big"><md-icon>attach_money</md-icon>{{assignment.bounty}}</span>
+    <span class="md-body-1">per approved CV</span>
+  </div>
+</div>
+
+
+<div layout="column" layout-gt-md="row" layout-align="center start">
+  <h2 class="md-title"> Job description</h2>
+  <span flex-gt-md></span>
+  <h2 class="md-title salary-emphasis">{{job.salaryRange}}</h2>
+</div>
+<div ng-bind-html="safeHTMLDescription" class="md-body-1">
+</div>
+<job-requirements ng-if="isValidated && job.requirements" requirements="job.requirements">
+
+</job-requirements>
+<a ng-if="job.descriptionFile" href="" ng-click="download(job.descriptionFile)"><span>{{job.descriptionFile.originalFilename}}</span></a>

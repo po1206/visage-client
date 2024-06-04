@@ -1,0 +1,50 @@
+<div id="main" class="md-inline-form mail-container md-whiteframe-z1">
+  <md-content class="mail-form" layout-gt-sm="row" layout-padding>
+    <div style="width: 100%;" layout="column" layout-gt-sm="row">
+      <md-card flex-gt-sm>
+        <img ng-src="{{employerImagePath}}" class="md-card-image" alt="Employers picture">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">You are looking for talent for your company</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>
+            We are not a job board, we are a network of recruiters at your fingertips.
+            Post your job, we have recruiters specialised in your industry.
+            We take care of everything. Get suitable candidates to contact in a matter of days or
+            let our experts handle the full recruitment process for an extra fee.
+          </p>
+        </md-card-content>
+        <md-card-actions layout="column" layout-align="start">
+          <md-button class="md-primary md-raised md-hue-2" ng-click="employer()">I am an employer
+          </md-button>
+        </md-card-actions>
+      </md-card>
+      <md-card style="position: relative" flex-gt-sm>
+        <img ng-src="{{recruiterImagePath}}" class="md-card-image" alt="Recruiters picture">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">You want to become a freelance recruiter</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>
+            Review our job openings in your specialty and refer the most relevant ones for a
+            specific job.
+            When your submitted candidates are validated, you are immediately rewarded.
+            And it gets better, the more efficient you are, the more job openings we will provide
+            you.
+          </p>
+        </md-card-content>
+        <md-card-actions layout="column" layout-align="start">
+          <!--<md-button class="typeform-share link md-primary md-raised md-hue-2" ng-click="recruiter()" href="https://forms.typeform.io/to/vYRAAaTAY5" data-mode="1" target="_blank">I am a recruiter</md-button>-->
+          <md-button class="typeform-share link md-primary md-raised md-hue-2"
+                     ng-click="recruiter()">I am a recruiter
+          </md-button>
+
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</div>

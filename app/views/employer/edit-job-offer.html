@@ -1,0 +1,15 @@
+<announcement ng-if="alreadySubmitted">
+  <span class="md-body-2">Job already being sourced for, contact us at <a href="mailto:operations@visage.ae">operations@visage.ae</a> for any modifications</span>
+</announcement>
+
+<announcement ng-if="jobNotFound">
+  <span class="md-body-2 field-error">Job not found.</span>
+</announcement>
+
+<announcement ng-if="job.status==='Draft'">
+  <span class="md-body-2">Here are all the details about your job. You can format your job description the way you want candidates we pick to see it. Don't forget to approve it when you are happy about it.</span>
+</announcement>
+
+<job-editor ng-disabled="alreadySubmitted" job="job" on-job-saved="jobSaved()" terms="true">
+
+</job-editor>

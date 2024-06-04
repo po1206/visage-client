@@ -1,0 +1,25 @@
+<walkthrough-item ng-if="job.status==='Calibrated' && indicators.pendingCVs > 0" walkthrough-name="calibration-start"></walkthrough-item>
+<walkthrough-item ng-if="job.status==='Calibrated' && indicators.pendingCVs === 0" state="validatingCalibration" on-close="employerHome()" walkthrough-name="calibration-end"></walkthrough-item>
+
+
+<div ng-if="job.employer_id === user._id">
+  <candidates-review-fab
+    ng-if="job.status==='Calibrated' && selectedCandidateSubmission.selected && selectedCandidateSubmission.selected.status==='Sourced'"
+    review-by="user"
+    job="job"
+    selected-candidate-submission="selectedCandidateSubmission"
+    on-done-reviewing="refreshSubmissions()"></candidates-review-fab>
+
+  <candidate-list-and-details job="job"
+                              indicators="indicators"
+                              candidate-submissions="candidateSubmissions"
+                              candidate-submissions-count="candidateSubmissionsCount"
+                              selected-candidate-submission="selectedCandidateSubmission"
+                              on-details-click="viewJob()"
+                              download-url="csvDownloadUrl">
+  </candidate-list-and-details>
+</div>
+<div ng-if="job.employer_id !== user._id">
+<announcement>Job not found</announcement>
+</div>
+

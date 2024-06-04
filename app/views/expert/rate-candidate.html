@@ -1,0 +1,14 @@
+<candidates-review-fab
+  ng-if="selectedCandidateSubmission.selected.status==='Sourced'"
+  review-by="user"
+  job="job"
+  selected-candidate-submission="selectedCandidateSubmission"
+  on-done-reviewing="refreshSubmissions()"></candidates-review-fab>
+
+<candidate-list-and-details
+  job="job"
+  indicators="indicators"
+  candidate-submissions="candidateSubmissions"
+  candidate-submissions-count="candidateSubmissionsCount"
+  selected-candidate-submission="selectedCandidateSubmission">
+</candidate-list-and-details>

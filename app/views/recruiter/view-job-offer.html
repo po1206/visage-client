@@ -1,0 +1,122 @@
+<indicators ng-if="!job.pre1dot8" indicators="indicators"></indicators>
+
+<announcement ng-if="!user.recruiter.validated">
+  <span class="md-body-2">Your account is being reviewed you can't work on jobs yet. <br> We validate recruiters depending on our needs in your industry and area of specialization. If you are selected we'll come back to you in a few days</span>
+</announcement>
+
+<announcement ng-if="(job.status === 'Validated' || job.status === 'ShortlistReady') && !job.sourcing">
+  <span class="md-body-2">We do not accept
+    referrals for this position anymore.</span>
+</announcement>
+
+<announcement ng-if="job.submissionsNb >= job.maxSourced">
+  <span class="md-body-2">Maximum number of submissions reached.</span>
+</announcement>
+
+<announcement ng-if="job.status === 'Closed'">
+  <span class="md-body-2">This position has been closed by the client.</span>
+</announcement>
+
+<announcement ng-if="job.launched === false">
+  <span class="md-body-2">This position has been put on hold by the client.</span>
+</announcement>
+
+<md-toolbar ng-if="job" class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>Job description</span>
+    </h2>
+    <span flex></span>
+    <md-button ng-click="refer($event)"
+               ng-if="!job.pre1dot8 && user.recruiter.validated && job.sourcing && subscribed"
+               class="md-icon-button"
+               aria-label="Refer candidates">
+      <md-tooltip md-direction="bottom">
+        Refer candidates
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+    </md-button>
+
+    <md-button ng-click="referWorkable($event)"
+               ng-if="job.pre1dot8 && user.recruiter.validated && job.sourcing && subscribed"
+               class="md-icon-button"
+               aria-label="Refer candidates">
+      <md-tooltip md-direction="bottom">
+        Refer candidates
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+    </md-button>
+
+    <md-button ng-click="subscribe()"
+               ng-if="user.recruiter.validated && job.sourcing && !subscribed"
+               class="md-icon-button"
+               aria-label="Claim">
+      <md-tooltip md-direction="bottom">
+        Claim
+      </md-tooltip>
+      <md-icon>check_box_outline_blank</md-icon>
+    </md-button>
+
+    <!--<md-button ng-click="unsubscribe()"-->
+    <!--ng-if="user.recruiter.validated && job.sourcing && subscribed"-->
+    <!--class="md-icon-button"-->
+    <!--aria-label="Deny">-->
+    <!--<md-tooltip md-direction="bottom">-->
+    <!--Deny-->
+    <!--</md-tooltip>-->
+    <!--<md-icon>check_box</md-icon>-->
+    <!--</md-button>-->
+  </div>
+</md-toolbar>
+<md-content ng-if="job" class="md-padding">
+
+  <job-description job="job" assignment="assignment" is-validated="user.recruiter.validated"></job-description>
+  <div layout="column" layout-gt-sm="row">
+    <span flex-gt-sm></span>
+
+    <md-button ng-click="refer($event)"
+               ng-if="!job.pre1dot8 && user.recruiter.validated && job.sourcing && subscribed && job.submissionsNb < job.maxSourced"
+               class="md-raised md-primary"
+               aria-label="Refer candidates">
+      <md-tooltip md-direction="bottom">
+        Refer candidates
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+      Refer candidates
+    </md-button>
+
+    <md-button ng-click="referWorkable($event)"
+               ng-disabled="getSlotsLeft()===0"
+               ng-if="job.pre1dot8 && user.recruiter.validated && job.sourcing && subscribed"
+               class="md-raised md-primary"
+               aria-label="Refer candidates">
+      <md-tooltip md-direction="bottom">
+        Refer candidates
+      </md-tooltip>
+      <md-icon>group_add</md-icon>
+      Refer candidates
+    </md-button>
+
+    <md-button ng-click="subscribe()"
+               ng-if="user.recruiter.validated && job.sourcing && !subscribed"
+               class="md-raised md-primary"
+               aria-label="Claim">
+      <md-tooltip md-direction="bottom">
+        Claim
+      </md-tooltip>
+      <md-icon>check_box_outline_blank</md-icon>
+      Claim
+    </md-button>
+    <!--<md-button ng-click="unsubscribe()"-->
+    <!--ng-if="user.recruiter.validated && job.sourcing && subscribed"-->
+    <!--class="md-raised md-primary"-->
+    <!--aria-label="Deny">-->
+    <!--<md-tooltip md-direction="bottom">-->
+    <!--Deny-->
+    <!--</md-tooltip>-->
+    <!--<md-icon>check_box</md-icon>-->
+    <!--Deny-->
+    <!--</md-button>-->
+  </div>
+
+</md-content>

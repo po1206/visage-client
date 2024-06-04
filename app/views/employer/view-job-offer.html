@@ -1,0 +1,100 @@
+<announcement ng-if="job.status === 'Calibrated' || job.status === 'Approved' || job.status === 'Draft' || job.status === 'Validated' || job.status === 'ShortlistReady'">
+  <span class="md-body-2 md-accent" ng-if="job.status === 'Draft'">You didn't save this job yet</span>
+  <span class="md-body-2 md-accent" ng-if="job.status === 'Approved'">We have everything we need ! Our crowd of recruiters is now hunting for your sample profiles.</span>
+  <span class="md-body-2 md-accent" ng-if="job.status === 'Calibrated'">Please review sample profiles.</span>
+  <span class="md-body-2 md-accent" ng-if="job.status === 'Validated'">Your job description is complete
+    ! Our recruiters are looking for your talent.</span>
+  <span class="md-body-2 md-accent" ng-if="job.status === 'ShortlistReady'">Your shortlist is ready
+    !</span>
+</announcement>
+
+<div layout="row"
+     ng-if="job && ['Approved', 'Draft'].indexOf(job.status) === -1"
+     layout-align="start center">
+  <div layout="row" layout-align="center center" hide show-gt-md style="padding:30px">
+    <md-icon style="font-size: 50px">people</md-icon>
+  </div>
+  <div flex layout="row" layout-align="center center">
+    <pipeline-item flex
+                   hide show-gt-md
+                   ng-disabled="job.status!=='Calibrated'"
+                   status="Sourced"
+                   label="Sample"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesSourcedPath"></pipeline-item>
+    <md-icon hide show-gt-md>chevron_right</md-icon>
+    <pipeline-item flex
+                   ng-disabled="['Validated', 'LonglistReady' , 'ShortlistReady', 'Closed'].indexOf(job.status) === -1"
+                   status="Approved"
+                   label="Crowdsourced"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesApprovedPath"></pipeline-item>
+    <md-icon>chevron_right</md-icon>
+    <pipeline-item flex
+                   ng-disabled="['ShortlistReady', 'Closed'].indexOf(job.status) === -1"
+                   status="Shortlisted"
+                   label="Applied"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesShortlistedPath"></pipeline-item>
+  </div>
+</div>
+
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>Job description</span>
+    </h2>
+    <span flex></span>
+    <!--<md-button ng-click="checkout()" ng-if="job.status === 'Validated' && !job.paid" class="md-icon-button" aria-label="Payment">-->
+    <!--<md-tooltip md-direction="bottom">-->
+    <!--Payment-->
+    <!--</md-tooltip>-->
+    <!--<md-icon>payment</md-icon>-->
+    <!--</md-button>-->
+    <md-button ng-click="viewShortlist()"
+               ng-if="(job.status=== 'ShortlistReady' || job.status=== 'Closed')"
+               class="md-icon-button"
+               aria-label="View Shortlist">
+      <md-tooltip md-direction="bottom">
+        View shortlist
+      </md-tooltip>
+      <md-icon>people</md-icon>
+    </md-button>
+    <md-button ng-click="editJob()" class="md-icon-button" aria-label="Edit">
+      <md-tooltip md-direction="bottom">
+        Edit
+      </md-tooltip>
+      <md-icon>edit</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content ng-show="pending" layout="column" layout-align="center center">
+  <p class="md-body-2">Loading job description...</p>
+  <md-progress-circular ng-show="pending" md-mode="indeterminate"></md-progress-circular>
+</md-content>
+<md-content ng-if="job" class="md-padding">
+  <job-description job="job" is-validated="true"></job-description>
+
+  <div layout="column" layout-gt-sm="row">
+    <span flex-gt-sm></span>
+    <!--<md-button ng-click="checkout()" class="md-raised md-primary md-hue-2" ng-if="job.status === 'Validated' && !job.paid" aria-label="Validate">-->
+    <!--<md-icon>payment</md-icon>-->
+    <!--Pay-->
+    <!--</md-button>-->
+    <md-button ng-click="viewShortlist()"
+               class="md-raised md-accent"
+               ng-if="(job.status=== 'ShortlistReady' || job.status=== 'Closed')"
+               aria-label="Shortlist">
+      <md-icon>people</md-icon>
+      Shortlist
+    </md-button>
+    <md-button ng-click="editJob()" class="md-raised md-primary" aria-label="Edit">
+      <md-icon>edit</md-icon>
+      Edit
+    </md-button>
+  </div>
+
+</md-content>

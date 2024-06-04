@@ -1,0 +1,67 @@
+<announcement ng-if="job.status === 'Closed'">
+  <span class="md-body-2">This position has been closed by the client.</span>
+</announcement>
+
+<announcement ng-if="job.launched === false">
+  <span class="md-body-2">This position has been put on hold by the client.</span>
+</announcement>
+
+<md-toolbar ng-if="job" class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>Job description</span>
+    </h2>
+    <span flex></span>
+    <md-button ng-click="evaluateWorkable()"
+               ng-if="job.pre1dot8 && job.launched"
+               class="md-icon-button"
+               aria-label="Evaluate candidates">
+      <md-tooltip md-direction="bottom">
+        Evaluate candidates
+      </md-tooltip>
+      <md-icon>rate_review</md-icon>
+    </md-button>
+
+    <md-button ng-click="evaluate()"
+               ng-if="!job.pre1dot8 && job.launched"
+               class="md-icon-button"
+               aria-label="Evaluate candidates">
+      <md-tooltip md-direction="bottom">
+        Evaluate candidates
+      </md-tooltip>
+      <md-icon>rate_review</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content ng-if="job" class="md-padding">
+  <job-description job="job" is-validated="user.roles.indexOf('expert')"></job-description>
+
+  <div layout="column" layout-gt-sm="row">
+    <span flex-gt-sm></span>
+
+    <md-button
+      ng-if="job.launched && job.pre1dot8"
+      ng-click="evaluateWorkable()"
+      class="md-raised md-primary"
+      aria-label="Evaluate candidates">
+      <md-tooltip md-direction="bottom">
+        Evaluate candidates
+      </md-tooltip>
+      <md-icon>rate_review</md-icon>
+      Evaluate candidates
+    </md-button>
+
+    <md-button
+      ng-if="job.launched && !job.pre1dot8"
+      ng-click="evaluate()"
+      class="md-raised md-primary"
+      aria-label="Evaluate candidates">
+      <md-tooltip md-direction="bottom">
+        Evaluate candidates
+      </md-tooltip>
+      <md-icon>rate_review</md-icon>
+      Evaluate candidates
+    </md-button>
+  </div>
+
+</md-content>

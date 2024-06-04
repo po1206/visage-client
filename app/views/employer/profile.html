@@ -1,0 +1,73 @@
+<form name="form" class="job-form" ng-submit="form.$valid && save()" novalidate class="job-form">
+  <div class="md-whiteframe-z1">
+    <md-content layout="column" class="md-padding">
+
+      <p class="secondary-text md-body-2" ng-show="warningNameModified">
+        IMPORTANT UPDATE: In order to better know you, we now require your name, please fill the
+        appropriate field or just confirm it by saving your profile. You won't be able to proceed
+        until you do so.
+      </p>
+
+      <p class="md-body md-padding">
+        <span ng-class="{'secondary-text' : form.$invalid}">Please indicate your name, your phone number and company</span>.
+      </p>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Name</label>
+          <md-icon>person</md-icon>
+          <input name="uName" ng-required="true" ng-model="prefs.name">
+          <div ng-show="form.$submitted || form.uName.$touched">
+            <div ng-message="required" ng-show="form.uName.$error.required">This field is
+              mandatory
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Company name</label>
+          <md-icon>work</md-icon>
+          <input name="uCompany" ng-required="true" ng-model="prefs.employer.company">
+          <div ng-show="form.$submitted || form.uCompany.$touched">
+            <div ng-message="required" ng-show="form.uCompany.$error.required">This field is
+              mandatory
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Phone</label>
+        <md-icon>phone</md-icon>
+        <input type="tel" name="uPhone" ng-required="true" ng-model="prefs.employer.phone">
+        <div ng-show="form.$submitted || form.uPhone.$touched">
+          <div ng-message="required" ng-show="form.uPhone.$error.required">This field is mandatory
+          </div>
+        </div>
+      </md-input-container>
+
+
+      <md-input-container class="md-block">
+        <label>Billing adress</label>
+            <textarea ng-model="prefs.employer.billingAddress"
+                      name="billingAdress"
+                      columns="1" rows="5"></textarea>
+      </md-input-container>
+
+      <div layout-gt-sm="row">
+        <span flex-gt-sm></span>
+        <md-progress-circular ng-show="pending" md-mode="indeterminate"></md-progress-circular>
+        <div layout="row">
+          <md-button flex ng-disabled="pending" type="submit" class="md-raised md-primary md-hue-2">
+            Save
+          </md-button>
+        </div>
+      </div>
+
+    </md-content>
+  </div>
+
+
+</form>
+
+

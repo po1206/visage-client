@@ -1,0 +1,37 @@
+<md-sidenav ng-if="!home" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+  <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools">Navigation</h1>
+  </md-toolbar>
+  <md-content layout-padding>
+    <md-list>
+      <md-list-item ng-click="navigateTo('/employer/jobs')">
+        <md-icon>view_headline</md-icon>
+        <p>My jobs</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('/employer/job-offer/edit')">
+        <md-icon>add</md-icon>
+        <p>Post a job</p>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+    <md-list>
+      <md-subheader class="md-no-sticky">Information</md-subheader>
+      <md-list-item ng-click="open('http://visage.jobs')">
+        <md-icon>info_outline</md-icon>
+        <p>About Visage</p>
+      </md-list-item>
+      <md-list-item ng-click="open('http://visage.jobs/pricing.html')">
+        <md-icon>attach_money</md-icon>
+        <p>Pricing</p>
+      </md-list-item>
+      <md-list-item ng-click="open('http://visage.jobs/terms-conditions.html')">
+        <!--<md-icon>attach_money</md-icon>-->
+        <p>Terms and conditions</p>
+      </md-list-item>
+      <md-list-item ng-click="open('http://visage.jobs/privacy-policy.html')">
+        <!--<md-icon>attach_money</md-icon>-->
+        <p>Privacy policy</p>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</md-sidenav>
